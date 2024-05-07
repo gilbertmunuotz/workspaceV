@@ -27,12 +27,19 @@ export const apiSlice = createApi({
         }),
         logout: builder.mutation({
             query: () => ({
-                url: `logout`,
+                url: `/logout`,
                 method: 'GET',
             })
-        })
+        }),
+        sendMessage: builder.mutation({
+            query: (data) => ({
+                url: `/users`,
+                method: "POST",
+                body: data,
+            })
+        }),
     }),
 });
 
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation } = apiSlice;
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation, useSendMessageMutation } = apiSlice;
