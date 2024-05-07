@@ -1,16 +1,5 @@
 var Joi = require('joi');
-var userModel = require('../models/userModel');
-
-//(DESC) A sample to test the routes & connections
-async function getSignal(req, res, next) {
-    try {
-        res.send("Welcome Back")
-    } catch (error) {
-        next(error)
-        console.error("Error Getting Signal", error);
-        res.status(500).send({ status: 'error', message: "Internal Server Error" });
-    }
-}
+var messageModel = require('../models/userModel');
 
 //(DESC) Save User's Messages
 async function contacts(req, res, next) {
@@ -21,9 +10,9 @@ async function contacts(req, res, next) {
     try {
         // Validate request body using Joi
         const schema = Joi.object({
-            name: Joi.string().min(3).max(200).required(),
-            email: Joi.string().email().required(),
-            message: Joi.string().min(3).max(2000).required(),
+            name: Joi.string().min(3).max(200),
+            email: Joi.string().email(),
+            message: Joi.string().min(3).max(5000),
         }).options({ abortEarly: false })
 
         const { error } = schema.validate(req.body, { abortEarly: false });
@@ -32,11 +21,19 @@ async function contacts(req, res, next) {
             return res.status(400).json({ errors: error.details.map(detail => detail.message) });
         }
 
-        // Create and save new user
-        const newUser = new userModel({ name, email, message });
-        const savedData = await newUser.save();
+        const existingData = await messageModel.findOne({ email });
 
-        res.json(savedData); // Respond with created user data
+        if (existingData) {
+            existingData.message.push({ message, timestamp: new Date() });
+            await existingData.save();
+
+            res.status(201).json({ message: 'Message submitted successfully!' });
+        } else {
+            // Create and save new Message
+            const newData = new messageModel({ name, email, message: [{ message }] });
+            const savedData = await newData.save();
+            res.status(201).json({ message: 'Message submitted successfully!' });
+        }
     } catch (error) {
         next(error)
         console.error('Error saving data', error);
@@ -44,4 +41,4 @@ async function contacts(req, res, next) {
     }
 }
 
-module.exports = { getSignal, contacts }; 
+module.exports = { contacts }; 

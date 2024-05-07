@@ -5,17 +5,6 @@ var token = require('../jwtToken.js');
 var adminModel = require('../models/adminModel');
 
 
-//(DESC) A sample to test the routes & connections
-async function getSignal(req, res, next) {
-    try {
-        res.send("Welcome Back")
-    } catch (error) {
-        next(error)
-        console.error("Error Getting Signal", error);
-        res.status(500).send({ status: 'error', message: "Internal Server Error" });
-    }
-}
-
 //(DESC) Admin Registration
 async function adminRegisters(req, res, next) {
 
@@ -133,4 +122,4 @@ async function adminLogouts(req, res, next) {
 }
 
 
-module.exports = { getSignal, adminRegisters, adminLogins, adminLogouts }
+module.exports = { adminRegisters, adminLogins, adminLogouts }
