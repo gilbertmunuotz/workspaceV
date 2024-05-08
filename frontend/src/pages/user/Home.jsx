@@ -1,4 +1,3 @@
-import React from 'react'
 import Typewriter from 'typewriter-effect';
 import LandingPG from '../../assets/Digital circle.jpg'
 
