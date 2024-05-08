@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from "react-router-dom";
 import Masked from '../../assets/2248500.jpg'
 import Network from "../../assets/network.jpg"
