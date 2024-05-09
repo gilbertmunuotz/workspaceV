@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import ScaleLoader from "react-spinners/ScaleLoader";
+
 
 const override = {
     position: "fixed",
@@ -14,6 +16,9 @@ const override = {
 };
 
 function Spinner({ loading }) {
+    Spinner.propTypes = {
+        loading: PropTypes.bool,
+    };
     return (
         loading && (
             <div className='loader' style={override}>

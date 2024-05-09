@@ -30,7 +30,6 @@ function Login() {
             }
             else {
                 navigate('/adminH');
-                toast.success('Welcome Back');
                 dispatch(credentials(response.data.user)); // Dispatch credentials action with user data
             }
 
@@ -47,7 +46,7 @@ function Login() {
             <div className="container mx-auto max-w-sm flex items-center justify-center h-full">
                 <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col w-full px-8 py-10">
                     <h2 className="text-2xl font-bold text-sky-500 text-center mb-8">Welcome Admin</h2>
-                    
+
                     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
 
                         <input

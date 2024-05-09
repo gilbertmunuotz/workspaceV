@@ -1,19 +1,24 @@
 import { FaTh } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { CiLogout } from "react-icons/ci";
+import Spinner from "../../components/Spinner";
 import { useSelector, useDispatch } from 'react-redux';
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from "../../auth/apiSlice";
 import { clearPersistedState } from "../../auth/authSlice";
 
+import { useEffect, useState } from "react";
+
 function Home() {
+
+    const [products, setProducts] = useState([]);
 
     const userInfo = useSelector(state => state.auth.userInfo)
     const username = userInfo?.username;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [logout] = useLogoutMutation();
+    const [logout, isLoading] = useLogoutMutation();
 
     async function handleLogout() {
         try {
@@ -31,6 +36,34 @@ function Home() {
         { path: "/adminH", name: "Home", icon: <FaTh className="ml-1" /> },
         { path: "/addItems", name: "Add Product", icon: <IoIosAddCircleOutline size={24} /> },
     ];
+
+
+
+    useEffect(() => {
+
+        const url = 'http://localhost:3001/api/allProducts';
+
+        try {
+            fetch(url, {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        toast('Request Failed');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setProducts(data);
+                    console.log(data);
+                    isLoading(false)
+                })
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            isLoading(false)
+        }
+    }, [isLoading]);
+
 
 
     return (
@@ -51,11 +84,19 @@ function Home() {
 
 
                 <main className="flex flex-col flex-grow  pt-2 pl-8">
-                    <h1 className="self-end text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text my-2">Welcome, {username}</h1>
+                    <h1 className="font-serif self-end text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text my-2">Welcome, {username}</h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div className="left bg-gray-200 p-4">Left Content</div>
-                        <div className="center bg-gray-300 p-4">Center Content</div>
-                        <div className="right bg-gray-400 p-4">Right Content</div>
+                        {isLoading ? (<Spinner />) : (
+                            products.map((product) => (
+                                <div key={product._id}>
+                                    <img src={product.imageURL} alt={product.name} />
+                                    <h1>{product.name}</h1>
+                                    <p>Category: {product.category}</p>
+                                    <p>Description: {product.description}</p>
+                                    <p>Price: {product.price}</p>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </main>
             </div>
