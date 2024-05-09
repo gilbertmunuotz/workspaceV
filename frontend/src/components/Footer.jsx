@@ -1,4 +1,4 @@
-import { FaInstagram } from "react-icons/fa"; // Fa for FontAwesome
+import { FaInstagram } from "react-icons/fa";
 
 function Footer() {
     return (

@@ -24,7 +24,8 @@ var app = express();
 
 // Add your Express middleware, and other logic here
 app.use(express.json());
-app.use(cors({ origin: 'https://localhost:5173' }));
+app.use(cors());
+// app.use(cors({ origin: 'https://localhost:5173' }));
 
 
 app.use(userroutes);
