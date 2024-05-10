@@ -1,6 +1,9 @@
 import { FaTh } from "react-icons/fa";
 import { toast } from 'react-toastify';
+import { FaEdit } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
+import { useEffect, useState, useRef } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 import Spinner from "../../components/Spinner";
 import { useSelector, useDispatch } from 'react-redux';
 import { IoIosAddCircleOutline } from "react-icons/io";
@@ -8,17 +11,17 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from "../../auth/apiSlice";
 import { clearPersistedState } from "../../auth/authSlice";
 
-import { useEffect, useState } from "react";
-
 function Home() {
-
-    const [products, setProducts] = useState([]);
 
     const userInfo = useSelector(state => state.auth.userInfo)
     const username = userInfo?.username;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [logout, isLoading] = useLogoutMutation();
+    const searchInputRef = useRef(null);
+    const [logout] = useLogoutMutation();
+    const [isLoading, setIsLoading] = useState(true);
+    const [products, setProducts] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
 
     async function handleLogout() {
         try {
@@ -38,69 +41,110 @@ function Home() {
     ];
 
 
-
     useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsLoading(false); // Set loading to false after 1 minute
+        }, 90 * 1000);
+
+        searchInputRef.current.focus();
 
         const url = 'http://localhost:3001/api/allProducts';
 
+        setIsLoading(true);
         try {
             fetch(url, {
                 method: 'GET'
             })
                 .then(response => {
                     if (!response.ok) {
-                        toast('Request Failed');
+                        throw new Error('Request Failed'); // Throwing an error to trigger the catch block
                     }
-                    return response.json();
+                    return response.json(); // Parse response data
                 })
                 .then(data => {
-                    setProducts(data);
-                    console.log(data);
-                    isLoading(false)
+                    setProducts(data.products);
+                    setIsLoading(false);
                 })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    toast('An error occurred while fetching data.');
+                    setIsLoading(false);
+                });
         } catch (error) {
-            console.error('Error fetching data:', error);
-            isLoading(false)
+            console.error("Error Getting Data", error);
+            setIsLoading(false);
         }
-    }, [isLoading]);
 
+        return () => clearTimeout(timeoutId);
+    }, []);
 
+    async function handleInputChange(event) {
+        setSearchQuery(event.target.value)
+    }
 
     return (
-        <div className='Home'>
-            <div className="container flex">
-                <div className='sidebar bg-black text-white h-screen w-64 flex flex-col'>
-                    <div className="top_section flex items-center py-4">
+        <>
+            <div className='Home'>
+                <div className="container flex">
+                    <div className='fixed bg-black text-white h-full flex flex-col w-64'>
+                        <div className="top_section flex items-center py-4">
+                        </div>
+                        {menuItems.map((item, index) => (
+                            <NavLink key={index} to={item.path} className='link flex items-center py-3 px-8 gap-4'>
+                                <div className="icon text-xl mt-3">{item.icon}</div>
+                                <span className='link_text text-base mt-3'>{item.name}</span>
+                            </NavLink>
+                        ))}
+                        <button type="button" className="mt-auto mb-10" onClick={handleLogout}><CiLogout className="inline-block mr-3" size={24} /> Log Out </button>
                     </div>
-                    {menuItems.map((item, index) => (
-                        <NavLink key={index} to={item.path} className='link flex items-center py-3 px-8 gap-4'>
-                            <div className="icon text-xl mt-3">{item.icon}</div>
-                            <span className='link_text text-base mt-3'>{item.name}</span>
-                        </NavLink>
-                    ))}
 
-                    <button type="button" className="mt-auto mb-10 mr-20" onClick={handleLogout}><CiLogout className="inline-block mr-3" size={24} /> Log Out </button>
+                    <main className="flex flex-col flex-grow pt-2 pl-8 pr-4 overflow-y-auto ml-64">
+                        <div className="container mx-auto"> {/* Add container to limit the width */}
+                            <div className="top-bar flex justify-between font-serif my-1 py-2">
+                                <input type="text" value={searchQuery} onChange={handleInputChange} ref={searchInputRef} className="rounded-lg ring-4 px-2 pr-8" placeholder="Search..." />
+                                <h2 className="self-end text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 text-transparent bg-clip-text">Welcome, {username}</h2>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6"> {/* Add mt-6 to create space below the top bar */}
+                            {isLoading ? (
+                                <Spinner loading={isLoading} /> // Pass loading state to Spinner component
+                            ) : products?.length === 0 ? (
+                                <p>No products found.</p>
+                            ) : (
+                                products.filter(product => {
+                                    if (!searchQuery) {
+                                        return true;  // Filter products based on the search query
+                                    }
+                                    else {
+                                        return (
+                                            product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                            product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                            product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                            product.price.toString().includes(searchQuery) // Convert price to string for comparison
+                                        );
+                                    }
+                                }).map((product) => (
+                                    <div key={product._id} className="border p-4 rounded">
+                                        <img src={product.imageURL} alt={product.name} className="w-full h-auto" />
+                                        <div className="grid grid-cols-2">
+                                            <h9 className="text-gray-600">{product.name}</h9>
+                                            <p className="text-gray-600">Category: {product.category}</p>
+                                            <p className="text-gray-600">Description: {product.description}</p>
+                                            <p className="text-gray-600">Price: {product.price}</p>
+                                            <h3 className="flex justify-between col-span-2">
+                                                <p> <FaEdit /></p>
+                                                <p><FaTrashAlt /></p>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </main>
                 </div>
-
-
-                <main className="flex flex-col flex-grow  pt-2 pl-8">
-                    <h1 className="font-serif self-end text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text my-2">Welcome, {username}</h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {isLoading ? (<Spinner />) : (
-                            products.map((product) => (
-                                <div key={product._id}>
-                                    <img src={product.imageURL} alt={product.name} />
-                                    <h1>{product.name}</h1>
-                                    <p>Category: {product.category}</p>
-                                    <p>Description: {product.description}</p>
-                                    <p>Price: {product.price}</p>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </main>
             </div>
-        </div>
+        </>
     )
 }
 

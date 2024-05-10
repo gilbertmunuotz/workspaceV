@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
 import Masked from '../../assets/2248500.jpg'
 import Network from "../../assets/network.jpg"
@@ -47,8 +48,8 @@ function Body() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-16 mx-12">
                 <section className="self-center mx-12">
-                    <h1 className="text-center text-3xl font-serif">Who Are We...</h1>
-                    <p>We are a group of dedicated individuals committed to providing the best. With years of experience in the industry, we strive to be the best in our field and put our customers first. Our team is passionate about building relationships with each and every one of you and creating an environment where everyone feels welcome. We work hard to ensure that your experience with us is perfect, and we are here to help you. Thank you for choosing us as your go-to provider; we look forward serving you!.</p>
+                    <h1 className="text-center text-2xl font-serif">Who Are We...</h1>
+                    <p className="text-lg">We are a group of dedicated individuals committed to providing the best. With years of experience in the industry, we strive to be the best in our field and put our customers first. Our team is passionate about building relationships with each and every one of you and creating an environment where everyone feels welcome. We work hard to ensure that your experience with us is perfect, and we are here to help you. Thank you for choosing us as your go-to provider; we look forward serving you!.</p>
                 </section>
 
                 <section className="mx-12">

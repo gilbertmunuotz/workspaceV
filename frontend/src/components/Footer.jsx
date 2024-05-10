@@ -4,7 +4,7 @@ function Footer() {
     return (
         <div className="Footer">
             <div className="bg-black text-white p-16">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mx-10">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mx-auto">
                     <div className="sec1">
                         <a
                             href="http://www.instagram.com/computers_accessories_dsm"
