@@ -38,8 +38,8 @@ function Form() {
     return (
         <div className="Form">
             <h1 className="text-4xl text-center my-6 font-serif mt-24">Contact Us</h1>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-12 mx-10">
-                <form onSubmit={HandleSubmit} className="mx-12">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-12 mx-auto">
+                <form onSubmit={HandleSubmit} className="mx-14">
 
                     <div className="row-1">
                         <label htmlFor="name">Name:</label>
@@ -91,7 +91,7 @@ function Form() {
                 </form>
 
                 <section className="map mx-10">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d990.403206632233!2d39.281982249841874!3d-6.816855767023816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4f2e13a38a27%3A0xecce4ec45e022a1b!2sWorkspace%20Computers%20Limited!5e0!3m2!1sen!2stz!4v1711569911889!5m2!1sen!2stz"
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d247.60085154336824!2d39.2826745!3d-6.8167592!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4f2e13a38a27%3A0xecce4ec45e022a1b!2sWorkspace%20Computers%20Limited!5e0!3m2!1sen!2stz!4v1715239655447!5m2!1sen!2stz"
                         className='sm:p-4'
                         width="100%"
                         height="400"
@@ -102,7 +102,7 @@ function Form() {
                     </iframe>
                 </section>
             </div>
-        </div>
+        </div >
     )
 }
 export default Form

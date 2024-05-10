@@ -67,7 +67,7 @@ async function newProduct(req, res, next) {
 async function getAllProducts(req, res, next) {
     try {
         const products = await productModel.find({})
-        res.status(200).json({ data: products })
+        res.status(200).json({ products })
     } catch (error) {
         next(error)
         console.error("Error Getting Product", error);
@@ -99,27 +99,38 @@ async function getAsingleProduct(req, res, next) {
 }
 
 
-//(DESC) UPDATE a Product By Id
 async function updateProduct(req, res, next) {
-    try {
+    // Integrate Multer Logic Here 
+    uploads.single('image')(req, res, async (error) => { // Ensure Single File upload for image field
 
-        const { id } = req.params;
-
-        const results = await productModel.findByIdAndUpdate(id, req.body)
-
-        if (!results) {
-            return res.status(400).json({ status: 'error', message: "Product Not Found" });
-        } else {
-            return res.status(200).json({ message: "Updated Succedfully" });
+        // Handle Multer Errors
+        if (error) {
+            console.error("Multer Error", error);
+            return res.status(400).json({ status: 'error', message: "Multer Error" });
         }
 
-    } catch (error) {
-        next(error)
-        console.error("Error Updating Product", error);
-        res.status(500).json({ status: 'error', message: "Internal Server Error" });
-    }
-}
+        // Destructure Request Body
+        const { name, category, description, price } = req.body;
+        const { id } = req.params; // Assuming productId is passed in the URL params
 
+        try {
+            // Access uploaded image details from req.file (if successful upload)
+            const imageURL = req.file ? req.file.path : ""; // Get image path or an empty string
+
+            const updatedProduct = { name: name, category: category, description: description, price: price, imageURL: imageURL };
+
+            const results = await productModel.findByIdAndUpdate(id, updatedProduct, { new: true });
+            if (!results) {
+                return res.status(400).json({ status: 'error', message: "Product Not Found" });
+            } else {
+                return res.status(200).json({ message: "Updated Successfully" });
+            }
+        } catch (error) {
+            console.error("Error updating Product", error);
+            return res.status(500).json({ status: 'error', message: 'Error updating Product' });
+        }
+    });
+}
 
 //(DESC) DELETE a Product 
 async function deletePro(req, res, next) {
