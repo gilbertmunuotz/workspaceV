@@ -7,9 +7,9 @@ import { FaTrashAlt } from "react-icons/fa";
 import Spinner from "../../components/Spinner";
 import { useSelector, useDispatch } from 'react-redux';
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { NavLink, useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from "../../auth/apiSlice";
 import { clearPersistedState } from "../../auth/authSlice";
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 
 function Home() {
 
@@ -82,6 +82,35 @@ function Home() {
         setSearchQuery(event.target.value)
     }
 
+
+    async function deleteProduct(productId) {
+        try {
+            setIsLoading(true);
+
+            const url = `http://localhost:3001/api/delete/${productId}`;
+
+            const response = await fetch(url, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error('Delete Failed');
+            }
+
+            // eslint-disable-next-line no-unused-vars
+            const data = await response.json();
+            setProducts(prevProducts => prevProducts.filter(product => product._id !== productId));
+            toast.success("Product Deleted Succesfully.")
+
+        } catch (error) {
+            console.error('Error Deleting Product:', error);
+            toast('An error occurred while Deleting Product.');
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+
     return (
         <>
             <div className='Home'>
@@ -110,7 +139,7 @@ function Home() {
                             {isLoading ? (
                                 <Spinner loading={isLoading} /> // Pass loading state to Spinner component
                             ) : products?.length === 0 ? (
-                                <p>No products found.</p>
+                                <p className="text-center">No products found.</p>
                             ) : (
                                 products.filter(product => {
                                     if (!searchQuery) {
@@ -126,15 +155,21 @@ function Home() {
                                     }
                                 }).map((product) => (
                                     <div key={product._id} className="border p-4 rounded">
-                                        <img src={product.imageURL} alt={product.name} className="w-full h-auto" />
+                                        <img src={`${product.imageURL}`} alt={product.name} className="w-full h-auto" />
                                         <div className="grid grid-cols-2">
-                                            <h9 className="text-gray-600">{product.name}</h9>
+                                            <h1 className="text-gray-600">{product.name}</h1>
                                             <p className="text-gray-600">Category: {product.category}</p>
                                             <p className="text-gray-600">Description: {product.description}</p>
                                             <p className="text-gray-600">Price: {product.price}</p>
                                             <h3 className="flex justify-between col-span-2">
-                                                <p> <FaEdit /></p>
-                                                <p><FaTrashAlt /></p>
+                                                <p>
+                                                    <Link to={`/prodctpg/${product._id}`}>
+                                                        <FaEdit />
+                                                    </Link>
+                                                </p>
+                                                <button type="button" onClick={() => deleteProduct(product._id)}>
+                                                    <FaTrashAlt />
+                                                </button>
                                             </h3>
                                         </div>
                                     </div>
