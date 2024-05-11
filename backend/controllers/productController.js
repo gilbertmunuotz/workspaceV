@@ -16,20 +16,19 @@ async function getSignal(req, res, next) {
 //(DESC) Create New Product
 async function newProduct(req, res, next) {
 
-    // Intergrate Multer Logic Here 
-    uploads.single('image')(req, res, async (error) => { //ensure Single File upload for image field
-
+    // Integrate Multer Logic Here
+    uploads.single('image')(req, res, async (error) => {
         // Handle Multer Errors
         if (error) {
             console.error("Multer Error", error);
             return res.status(400).json({ status: 'error', message: "Multer Error" });
         }
 
-        //Destructure Request Body
+        // Destructure Request Body
         const { name, category, description, price } = req.body;
 
         try {
-
+            // Validation with Joi (unchanged)
             const productSchema = Joi.object().keys({
                 name: Joi.string().required(),
                 category: Joi.string().required(),
@@ -43,20 +42,27 @@ async function newProduct(req, res, next) {
                 return res.status(400).json({ errors: error.details.map(detail => detail.message) });
             }
 
-            // Access uploaded image details from req.file (if successful upload)
-            const imageURL = req.file ? req.file.path : ""; // Get image path or an empty string
+            // Extract Filename (New Logic)
+            const { filename, path } = req.file || {}; // Handle case where no file is uploaded
+            const extractedFilename = filename || ""; // Use filename if available, otherwise empty string
 
-            // Create new product with imageURL
+            // Create new product with extractedFilename
             try {
-                const newProduct = await productModel.create({ name, category, description, price, imageURL });
+                const newProduct = await productModel.create({
+                    name,
+                    category,
+                    description,
+                    price,
+                    imageURL: extractedFilename,
+                });
                 res.status(201).json({ message: "Product created successfully!" });
             } catch (error) {
                 console.error("Error Uploading Product", error);
-                return res.json({ status: 'error', message: 'Error uploading Product' });
+                return res.status(500).json({ status: 'error', message: 'Error uploading Product' });
             }
 
         } catch (error) {
-            next(error)
+            next(error);
             console.error("Error Uploading Product", error);
             res.status(500).json({ status: 'error', message: "Internal Server Error" });
         }

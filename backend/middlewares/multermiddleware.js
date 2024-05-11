@@ -1,9 +1,13 @@
-var multer = require('multer');
+const multer = require('multer');
+const path = require('path');
 
 const storage = multer.diskStorage({
-    destination: 'public/', // Public folder for uploads
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../../frontend/public')); // Using path.join for cross-platform compatibility
+        //It gets the directory of the currently executing file and then joining it with the relative path to the destination directory
+    },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname); // Specifies Unique filename
+        cb(null, Date.now() + '-' + file.originalname); // Generates a unique filename
     }
 });
 
