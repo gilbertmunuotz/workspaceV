@@ -91,7 +91,7 @@ function Form() {
                 </form>
 
                 <section className="map mx-10">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d247.60085154336824!2d39.2826745!3d-6.8167592!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4f2e13a38a27%3A0xecce4ec45e022a1b!2sWorkspace%20Computers%20Limited!5e0!3m2!1sen!2stz!4v1715239655447!5m2!1sen!2stz"
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d247.60080680692997!2d39.2823598!3d-6.8168458!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4f2e13a38a27%3A0xecce4ec45e022a1b!2sWorkspace%20Computers%20Limited!5e0!3m2!1sen!2stz!4v1715518737345!5m2!1sen!2stz"
                         className='sm:p-4'
                         width="100%"
                         height="400"

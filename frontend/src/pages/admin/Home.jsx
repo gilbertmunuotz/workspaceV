@@ -155,11 +155,11 @@ function Home() {
                                     }
                                 }).map((product) => (
                                     <div key={product._id} className="border p-4 rounded">
-                                        <img src={`${product.imageURL}`} alt={product.name} className="w-full h-auto" />
-                                        <div className="grid grid-cols-2">
+                                        <img src={`${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+                                        <div className="grid grid-cols-2 gap-3">
                                             <h1 className="text-gray-600">{product.name}</h1>
                                             <p className="text-gray-600">Category: {product.category}</p>
-                                            <p className="text-gray-600">Description: {product.description}</p>
+                                            <p className="text-gray-600">{product.description}</p>
                                             <p className="text-gray-600">Price: {product.price}</p>
                                             <h3 className="flex justify-between col-span-2">
                                                 <p>
@@ -167,9 +167,14 @@ function Home() {
                                                         <FaEdit />
                                                     </Link>
                                                 </p>
-                                                <button type="button" onClick={() => deleteProduct(product._id)}>
-                                                    <FaTrashAlt />
+                                                <button type="button" onClick={() => {
+                                                    if (window.confirm("This action cannot be undone.")) {
+                                                        deleteProduct(product._id);
+                                                    }
+                                                }}>
+                                                    <FaTrashAlt className="text-red-600" />
                                                 </button>
+
                                             </h3>
                                         </div>
                                     </div>
