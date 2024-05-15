@@ -158,5 +158,4 @@ async function deletePro(req, res, next) {
     }
 }
 
-
 module.exports = { getSignal, newProduct, getAllProducts, getAsingleProduct, updateProduct, deletePro };
