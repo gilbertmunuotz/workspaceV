@@ -33,7 +33,7 @@ function Detailspg() {
 
       try {
         setIsLoading(true)
-        const url = `http://localhost:3001/api/product/${id}`;
+        const url = `https://workspaceb.vercel.app/api/product/${id}`;
 
         const response = await fetch(url, { method: 'GET' });
 
@@ -75,7 +75,7 @@ function Detailspg() {
     formData.append('data', JSON.stringify(updatingFields));
     if (image) formData.append('image', image);
 
-    const url = `http://localhost:3001/api/updateProduct/${id}`;
+    const url = `https://workspaceb.vercel.app/api/updateProduct/${id}`;
 
     try {
       const response = await fetch(url, {
@@ -123,7 +123,7 @@ function Detailspg() {
             {productData ? (
               <>
                 <div className="flex flex-col items-center">
-                  <img src={`http://localhost:3001/images/${productData.imageURL}`} alt={productData.name} className="h-80 w-96 object-fill rounded-t-xl" />
+                  <img src={`https://workspaceb.vercel.app/images/${productData.imageURL}`} alt={productData.name} className="h-80 w-96 object-fill rounded-t-xl" />
                   <input type="file" className="mt-3" onChange={handleImageChange} name="image" />
                 </div>
 

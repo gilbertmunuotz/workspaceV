@@ -48,7 +48,7 @@ function Home() {
 
         searchInputRef.current.focus();
 
-        const url = 'http://localhost:3001/api/allProducts';
+        const url = 'https://workspaceb.vercel.app/api/allProducts';
 
         setIsLoading(true);
         try {
@@ -87,7 +87,7 @@ function Home() {
         try {
             setIsLoading(true);
 
-            const url = `http://localhost:3001/api/delete/${productId}`;
+            const url = `https://workspaceb.vercel.app/api/delete/${productId}`;
 
             const response = await fetch(url, {
                 method: 'DELETE'
@@ -154,7 +154,7 @@ function Home() {
                                     }
                                 }).map((product) => (
                                     <div key={product._id} className="border p-4 rounded">
-                                        <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+                                        <img src={`https://workspaceb.vercel.app/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
                                         <div className="grid grid-cols-2 gap-3">
                                             <h1 className="text-gray-600">{product.name}</h1>
                                             <p className="text-gray-600">Category: {product.category}</p>
