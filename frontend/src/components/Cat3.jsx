@@ -35,7 +35,9 @@ function Cat3() {
                 });
         } catch (error) {
             console.error("Error Getting Data", error);
-        } finally (setIsLoading(false))
+        } finally {
+            setIsLoading(false)
+        }
     }, []);
 
     return (
