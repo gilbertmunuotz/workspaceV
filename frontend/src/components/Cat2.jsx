@@ -9,9 +9,6 @@ function Cat2() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            // Set loading to false after 1 minute
-        }, 90 * 1000);
 
         const category = "Networking"; // Specify the category here
 
@@ -37,9 +34,9 @@ function Cat2() {
                 });
         } catch (error) {
             console.error("Error Getting Data", error);
+        } finally {
+            setIsLoading(false)
         }
-
-        return () => clearTimeout(timeoutId);
     }, []);
 
     return (

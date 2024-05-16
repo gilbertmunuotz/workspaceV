@@ -10,9 +10,6 @@ function Cat1() {
 
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            // Set loading to false after 1 minute
-        }, 90 * 1000);
 
         const category = "Computing"; // Specify the category here
 
@@ -38,9 +35,9 @@ function Cat1() {
                 });
         } catch (error) {
             console.error("Error Getting Data", error);
+        } finally {
+            setIsLoading(false)
         }
-
-        return () => clearTimeout(timeoutId);
     }, []);
 
     return (
