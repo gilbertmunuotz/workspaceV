@@ -110,7 +110,6 @@ function Home() {
         }
     }
 
-
     return (
         <>
             <div className='Home'>
@@ -124,7 +123,7 @@ function Home() {
                                 <span className='link_text text-base mt-3'>{item.name}</span>
                             </NavLink>
                         ))}
-                        <button type="button" className="mt-auto mb-10" onClick={handleLogout}><CiLogout className="inline-block mr-3" size={24} /> Log Out </button>
+                        <button type="button" className="mt-auto mb-10 mr-9" onClick={handleLogout}><CiLogout className="inline-block" size={24} /> Log Out </button>
                     </div>
 
                     <main className="flex flex-col flex-grow pt-2 pl-8 pr-4 overflow-y-auto ml-64">
@@ -155,7 +154,7 @@ function Home() {
                                     }
                                 }).map((product) => (
                                     <div key={product._id} className="border p-4 rounded">
-                                        <img src={`${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+                                        <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
                                         <div className="grid grid-cols-2 gap-3">
                                             <h1 className="text-gray-600">{product.name}</h1>
                                             <p className="text-gray-600">Category: {product.category}</p>
