@@ -7,7 +7,7 @@ var productController = require('../controllers/productController');
 router.get('/', productController.getSignal);
 
 /* POST New Product*/
-router.post('/api/newProduct', productController.newProduct);
+router.post('/api/newProduct', uploads.single('image'), productController.newProduct);
 
 /* GET All Products*/
 router.get('/api/allProducts', productController.getAllProducts);
