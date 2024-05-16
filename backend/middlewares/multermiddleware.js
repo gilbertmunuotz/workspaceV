@@ -1,15 +1,16 @@
 const multer = require('multer');
-const path = require('path');
 
+// Define the storage configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../../frontend/public')); // Using path.join for cross-platform compatibility
-        //It gets the directory of the currently executing file and then joining it with the relative path to the destination directory
+        cb(null, 'public/'); // Destination directory for uploaded files
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname); // Generates a unique filename
+        cb(null, Date.now() + '-' + file.originalname); // Generate a unique filename
     }
 });
 
+// Create the multer instance with the storage configuration
 const uploads = multer({ storage: storage });
-module.exports = uploads;
+
+module.exports = uploads; // Export the multer instance

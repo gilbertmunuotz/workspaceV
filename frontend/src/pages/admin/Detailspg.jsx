@@ -59,6 +59,12 @@ function Detailspg() {
   }, [id]); // Re-run useEffect when id changes
 
 
+  // Handle image file selection
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
+
   //Handle Update Logic
   async function handleUpdate(event) {
     event.preventDefault();
@@ -67,21 +73,17 @@ function Detailspg() {
 
     const formData = new FormData();
     formData.append('data', JSON.stringify(updatingFields));
-
-    if (image) {
-      formData.append('image', image);
-    }
-    console.log(formData);
+    if (image) formData.append('image', image);
 
     const url = `http://localhost:3001/api/updateProduct/${id}`;
+
     try {
       const response = await fetch(url, {
         method: 'PUT',
         body: formData,
-        headers: { 'Content-Type': 'form-data', },
       });
 
-      if (!response) {
+      if (!response.ok) {
         throw new Error('Update failed!');
       } else {
         // eslint-disable-next-line no-unused-vars
@@ -95,12 +97,7 @@ function Detailspg() {
     }
   }
 
-
-  //Capture Image
-  async function handleImage(event) {
-    setImage(event.target.files[0]);
-  }
-
+ 
   return (
     <>
       <div className='Detailspg'>
@@ -126,8 +123,8 @@ function Detailspg() {
             {productData ? (
               <>
                 <div className="flex flex-col items-center">
-                  <img src={`/${productData.imageURL}`} alt={productData.name} className="h-80 w-96 object-fill rounded-t-xl" />
-                  <input type="file" className="mt-3" onChange={handleImage} />
+                  <img src={`http://localhost:3001/images/${productData.imageURL}`} alt={productData.name} className="h-80 w-96 object-fill rounded-t-xl" />
+                  <input type="file" className="mt-3" onChange={handleImageChange} name="image" />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 ml-36">
@@ -183,7 +180,7 @@ function Detailspg() {
             </div>
           </form>
         </main>
-      </div>
+      </div >
 
     </>
   )

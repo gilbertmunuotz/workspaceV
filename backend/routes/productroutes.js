@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var uploads = require('../middlewares/multermiddleware');
 var productController = require('../controllers/productController');
 
 /* GET Home Page*/
@@ -15,7 +16,7 @@ router.get('/api/allProducts', productController.getAllProducts);
 router.get('/api/product/:id', productController.getAsingleProduct);
 
 /* UPDATE a Product By Id*/
-router.put('/api/updateProduct/:id', productController.updateProduct);
+router.put('/api/updateProduct/:id', uploads.single('image'), productController.updateProduct);
 
 /* DELETE a product*/
 router.delete('/api/delete/:id', productController.deletePro);

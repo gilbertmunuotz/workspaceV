@@ -1,4 +1,5 @@
 //Import NPM packages
+var path = require('path');
 var cors = require('cors');
 var express = require('express');
 var mongoose = require('mongoose');
@@ -27,6 +28,8 @@ app.use(express.json());
 app.use(cors());
 // app.use(cors({ origin: 'https://localhost:5173' }));
 
+// Serve images from the 'public' directory
+app.use('/images', express.static(path.join(__dirname, 'public')));
 
 app.use(userroutes);
 app.use(adminroutes);
