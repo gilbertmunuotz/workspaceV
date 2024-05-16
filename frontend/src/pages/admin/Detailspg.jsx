@@ -112,7 +112,7 @@ function Detailspg() {
               </NavLink>
             ))}
 
-            <button type="button" className="mt-auto mb-10 cursor-not-allowed">
+            <button type="button" className="mt-auto mb-10 mr-9 cursor-not-allowed">
               <CiLogout className="inline-block mr-3" size={24} />Log Out
             </button>
           </div>

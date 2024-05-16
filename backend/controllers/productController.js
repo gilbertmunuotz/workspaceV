@@ -16,57 +16,48 @@ async function getSignal(req, res, next) {
 //(DESC) Create New Product
 async function newProduct(req, res, next) {
 
-    // Integrate Multer Logic Here
-    uploads.single('image')(req, res, async (error) => {
-        // Handle Multer Errors
+    // Destructure Request Body
+    const { name, category, description, price } = req.body;
+
+    try {
+        // Validation with Joi (unchanged)
+        const productSchema = Joi.object().keys({
+            name: Joi.string().required(),
+            category: Joi.string().required(),
+            description: Joi.string().required(),
+            price: Joi.number().required(),
+        }).options({ abortEarly: false });
+
+        const { error } = productSchema.validate(req.body, { abortEarly: false });
+
         if (error) {
-            console.error("Multer Error", error);
-            return res.status(400).json({ status: 'error', message: "Multer Error" });
+            return res.status(400).json({ errors: error.details.map(detail => detail.message) });
         }
 
-        // Destructure Request Body
-        const { name, category, description, price } = req.body;
+        // Extract Filename (New Logic)
+        const { filename, path } = req.file || {}; // Handle case where no file is uploaded
+        const extractedFilename = filename || ""; // Use filename if available, otherwise empty string
 
+        // Create new product with extractedFilename
         try {
-            // Validation with Joi (unchanged)
-            const productSchema = Joi.object().keys({
-                name: Joi.string().required(),
-                category: Joi.string().required(),
-                description: Joi.string().required(),
-                price: Joi.number().required(),
-            }).options({ abortEarly: false });
-
-            const { error } = productSchema.validate(req.body, { abortEarly: false });
-
-            if (error) {
-                return res.status(400).json({ errors: error.details.map(detail => detail.message) });
-            }
-
-            // Extract Filename (New Logic)
-            const { filename, path } = req.file || {}; // Handle case where no file is uploaded
-            const extractedFilename = filename || ""; // Use filename if available, otherwise empty string
-
-            // Create new product with extractedFilename
-            try {
-                const newProduct = await productModel.create({
-                    name,
-                    category,
-                    description,
-                    price,
-                    imageURL: extractedFilename,
-                });
-                res.status(201).json({ message: "Product created successfully!" });
-            } catch (error) {
-                console.error("Error Uploading Product", error);
-                return res.status(500).json({ status: 'error', message: 'Error uploading Product' });
-            }
-
+            const newProduct = await productModel.create({
+                name,
+                category,
+                description,
+                price,
+                imageURL: extractedFilename,
+            });
+            res.status(201).json({ message: "Product created successfully!" });
         } catch (error) {
-            next(error);
             console.error("Error Uploading Product", error);
-            res.status(500).json({ status: 'error', message: "Internal Server Error" });
+            return res.status(500).json({ status: 'error', message: 'Error uploading Product' });
         }
-    });
+
+    } catch (error) {
+        next(error);
+        console.error("Error Uploading Product", error);
+        res.status(500).json({ status: 'error', message: "Internal Server Error" });
+    }
 }
 
 //(DESC) Read All Products
