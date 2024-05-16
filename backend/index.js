@@ -25,8 +25,7 @@ var app = express();
 
 // Add your Express middleware, and other logic here
 app.use(express.json());
-app.use(cors());
-// app.use(cors({ origin: 'https://localhost:5173' }));
+app.use(cors({ origin: 'https://workspacef.vercel.app/' }));
 
 // Serve images from the 'public' directory
 app.use('/images', express.static(path.join(__dirname, 'public')));
