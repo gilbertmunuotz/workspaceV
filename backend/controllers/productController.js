@@ -63,14 +63,22 @@ async function newProduct(req, res, next) {
 //(DESC) Read All Products
 async function getAllProducts(req, res, next) {
     try {
-        const products = await productModel.find({})
-        res.status(200).json({ products })
+        const { category } = req.query;
+
+        let filteredProducts = [];
+
+        // Filter products based on the category
+        if (category) {
+            filteredProducts = await productModel.find({ category });
+            res.status(200).json({ products: filteredProducts });
+        } else {
+            const products = await productModel.find({});
+            res.status(200).json({ products });
+        }
     } catch (error) {
-        next(error)
         console.error("Error Getting Product", error);
         res.status(500).json({ status: 'error', message: "Internal Server Error" });
     }
-
 }
 
 //(DESC) EDIT Product By Id

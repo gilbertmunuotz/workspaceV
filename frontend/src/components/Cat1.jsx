@@ -14,7 +14,9 @@ function Cat1() {
             // Set loading to false after 1 minute
         }, 90 * 1000);
 
-        const url = 'http://localhost:3001/api/allProducts';
+        const category = "Computing"; // Specify the category here
+
+        const url = `http://localhost:3001/api/allProducts?category=${encodeURIComponent(category)}`;
 
         setIsLoading(true);
         try {
@@ -48,13 +50,13 @@ function Cat1() {
                 Our Listed Products are 100% Original and comes with 2 Month Warranty Period, with VAT included.
             </p>
 
-            <h1 className="text-3xl text-center my-10">Computing</h1>
+            <h1 className="text-3xl text-center my-10 font-serif">Computing</h1>
 
             <div className='relative bg-white rounded-lg overflow-hidden shadow-xl hover:shadow-2xl'>
                 {isLoading ? (
                     <Spinner loading={isLoading} />
                 ) : products.length === 0 ? (
-                    <p className="text-center">No products found.</p>
+                    <p className="text-center">Products Not Available</p>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-12 mb-8">
                         {products.map((product) => (
