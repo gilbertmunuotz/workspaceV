@@ -16,7 +16,7 @@ function Cat1() {
 
         const category = "Computing"; // Specify the category here
 
-        const url = `http://localhost:3001/api/allProducts?category=${encodeURIComponent(category)}`;
+        const url = `https://workspaceb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
 
         setIsLoading(true);
         try {
