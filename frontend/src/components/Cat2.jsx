@@ -56,7 +56,7 @@ function Cat2() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-12 mb-8">
                         {products.map((product) => (
                             <div key={product._id} className="relative cursor-pointer">
-                                <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+                                <img src={`https://workspaceb.vercel.app/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
                                 <div className="block text-center">
                                     <h1 className="text-gray-600 font-bold">{product.name}</h1>
                                     <p className="text-gray-600">{product.description}</p>
