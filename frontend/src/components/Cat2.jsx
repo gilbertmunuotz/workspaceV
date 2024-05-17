@@ -12,7 +12,7 @@ function Cat2() {
 
         const category = "Networking"; // Specify the category here
 
-        const url = `https://workspaceb.vercel.app/allProducts?category=${encodeURIComponent(category)}`;
+        const url = `https://workspaceb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
 
         setIsLoading(true);
         try {
