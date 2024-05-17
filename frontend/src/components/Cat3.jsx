@@ -6,7 +6,7 @@ import Spinner from '../components/Spinner'
 
 function Cat3() {
 
-    const [products, setProducts] = useState('');
+     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -28,15 +28,16 @@ function Cat3() {
                 })
                 .then(data => {
                     setProducts(data.products);
-                    setIsLoading(false);
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
                 });
         } catch (error) {
             console.error("Error Getting Data", error);
-        } finally {
-            setIsLoading(false)
+            setIsLoading(false); // Set isLoading to false in case of an error
         }
     }, []);
 
