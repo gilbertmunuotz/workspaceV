@@ -1,19 +1,19 @@
 import Footer from './Footer';
 import Navbar from "./Navbar";
 import { useEffect, useState } from "react";
-import Spinner from '../components/Spinner'
+import Spinner from '../components/Spinner';
 
 
 function Cat3() {
 
-    const [products, setProducts] = useState('');
+    const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
 
         const category = "Stationeries"; // Specify the category here
 
-        const url = `https://workspaceb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
+        const url = `http://localhost:3001/api/allProducts?category=${encodeURIComponent(category)}`;
 
         setIsLoading(true);
         try {
@@ -28,15 +28,16 @@ function Cat3() {
                 })
                 .then(data => {
                     setProducts(data.products);
-                    setIsLoading(false);
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
                 });
         } catch (error) {
             console.error("Error Getting Data", error);
-        } finally {
-            setIsLoading(false)
+            setIsLoading(false); // Set isLoading to false in case of an error
         }
     }, []);
 
@@ -58,7 +59,7 @@ function Cat3() {
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-12 mb-8">
                         {products.map((product) => (
-                            <div key={product._id} className="relative cursor-pointer">
+                            <div key={product._id} className="relative">
                                 <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
                                 <div className="block text-center">
                                     <h1 className="text-gray-600 font-bold">{product.name}</h1>

@@ -33,7 +33,7 @@ function Detailspg() {
 
       try {
         setIsLoading(true)
-        const url = `https://workspaceb.vercel.app/api/product/${id}`;
+        const url = `http://localhost:3001/api/product/${id}`;
 
         const response = await fetch(url, { method: 'GET' });
 
@@ -75,7 +75,7 @@ function Detailspg() {
     formData.append('data', JSON.stringify(updatingFields));
     if (image) formData.append('image', image);
 
-    const url = `https://workspaceb.vercel.app/api/updateProduct/${id}`;
+    const url = `http://localhost:3001/api/updateProduct/${id}`;
 
     try {
       const response = await fetch(url, {
@@ -97,7 +97,7 @@ function Detailspg() {
     }
   }
 
- 
+
   return (
     <>
       <div className='Detailspg'>
@@ -118,70 +118,90 @@ function Detailspg() {
           </div>
         </div>
 
-        <main className="flex flex-col ml-64 text-center h-screen justify-center items-center">
-          <form onSubmit={handleUpdate}>
+
+        <main className="flex flex-col text-center h-screen justify-center items-center">
+          <form onSubmit={handleUpdate} className="w-full max-w-lg grid grid-cols-3 gap-4">
             {productData ? (
               <>
-                <div className="flex flex-col items-center">
-                  <img src={`https://workspaceb.vercel.app/images/${productData.imageURL}`} alt={productData.name} className="h-80 w-96 object-fill rounded-t-xl" />
-                  <input type="file" className="mt-3" onChange={handleImageChange} name="image" />
+                <div className="flex flex-col items-center mb-6 w-96">
+                  <img
+                    src={`http://localhost:3001/images/${productData.imageURL}`}
+                    alt={productData.name}
+                    className="h-80 w-96 object-fill rounded-t-xl mt-6 mr-48"
+                  />
+                  <input
+                    type="file"
+                    onChange={handleImageChange}
+                    name="image"
+                    className="block w-full text-sm text-gray-500 mt-3 file:mr-4 file:py-2 file:cursor-pointer file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-300 file:text-blue-700 hover:file:bg-blue-100"
+                  />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 ml-36">
-                  <div className="block">
-                    <label className="mr-4">Name:</label>
+                <div className="products block w-full col-span-2 ml-36">
+                  <div className="mb-4">
+                    <label className="block text-left mb-2">Name:</label>
                     <input
                       type="text"
                       value={name}
                       onChange={(event) => setName(event.target.value)}
+                      className="w-full p-2 rounded-md border border-gray-300 focus:border-sky-500"
                     />
+                  </div>
 
-                    <label className="mr-4 mt-4">Description:</label>
+                  <div className="mb-4">
+                    <label className="block text-left mb-2">Description:</label>
                     <textarea
                       type="text"
                       value={description}
                       onChange={(event) => setDescription(event.target.value)}
                       cols="30"
+                      rows="4"
+                      className="w-full p-2 rounded-md border border-gray-300 focus:border-sky-500"
                     />
                   </div>
 
-                  <div className="block">
-                    <label className="mr-4">Category:</label>
+                  <div className="mb-4">
+                    <label className="block text-left mb-2">Category:</label>
                     <select
-                      className="block p-2 rounded-md border border-gray-300  focus:border-sky-500"
                       value={category}
-                      onChange={(event) => setCategory(event.target.value)}  >
+                      onChange={(event) => setCategory(event.target.value)}
+                      className="block w-full p-2 rounded-md border border-gray-300 focus:border-sky-500"
+                    >
                       {categoryOptions.map((option) => (
                         <option key={option} value={option}>
                           {option}
                         </option>
                       ))}
                     </select>
+                  </div>
 
-
-                    <label className="mr-4 mt-4">Price:</label>
+                  <div className="mb-4">
+                    <label className="block text-left mb-2">Price:</label>
                     <input
                       type="number"
                       value={price}
                       onChange={(event) => setPrice(event.target.value)}
+                      className="w-full p-2 rounded-md border border-gray-300 focus:border-sky-500"
                     />
-
                   </div>
+                </div>
+
+                <div className="mt-6">
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="bg-sky-500 m-3 p-2 rounded-lg text-white ml-64"
+                  >
+                    {isLoading ? 'Updating...' : 'Update'}
+                  </button>
                 </div>
               </>
             ) : (
               <Spinner loading={isLoading} />
             )}
-
-            <div>
-              <button type="submit" disabled={isLoading} className="bg-sky-500 m-3 p-2 rounded-lg">
-                {isLoading ? 'Updating...' : 'Update'}
-              </button>
-            </div>
           </form>
         </main>
       </div >
-
     </>
   )
 }

@@ -31,7 +31,7 @@ function AddItems() {
 
         setIsLoading(true)
 
-        const url = "https://workspaceb.vercel.app/api/newProduct";
+        const url = "http://localhost:3001/api/newProduct";
 
         const formData = new FormData(); // Use FormData for multipart form data
         formData.append('name', name);
@@ -84,7 +84,7 @@ function AddItems() {
                             type="file"
                             name="image"
                             onChange={handleImage}
-                            className="block w-full p-2 border border-gray-300 rounded-md mt-3" />
+                            className="block w-full p-2 border border-gray-300 rounded-md mt-3 file:cursor-pointer" />
 
                         <div className="w-full">
                             <label className="mr-80 block">Name:</label>
