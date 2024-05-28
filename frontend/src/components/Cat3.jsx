@@ -6,7 +6,11 @@ import Spinner from '../components/Spinner';
 
 function Cat3() {
 
+<<<<<<< HEAD
     const [products, setProducts] = useState([]);
+=======
+     const [products, setProducts] = useState([]);
+>>>>>>> 68580a7af23de663a205425b9974fb0cdcd3377f
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -59,8 +63,13 @@ function Cat3() {
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-12 mb-8">
                         {products.map((product) => (
+<<<<<<< HEAD
                             <div key={product._id} className="relative">
                                 <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+=======
+                            <div key={product._id} className="relative cursor-pointer">
+                                <img src={`https://workspaceb.vercel.app/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+>>>>>>> 68580a7af23de663a205425b9974fb0cdcd3377f
                                 <div className="block text-center">
                                     <h1 className="text-gray-600 font-bold">{product.name}</h1>
                                     <p className="text-gray-600">{product.description}</p>
