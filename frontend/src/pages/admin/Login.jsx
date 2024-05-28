@@ -31,6 +31,7 @@ function Login() {
             else {
                 navigate('/adminH');
                 dispatch(credentials(response.data.user)); // Dispatch credentials action with user data
+                toast.success('Welcome Back');
             }
 
         } catch (error) {

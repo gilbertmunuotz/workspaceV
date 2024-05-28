@@ -5,12 +5,7 @@ import Spinner from '../components/Spinner';
 
 
 function Cat3() {
-
-<<<<<<< HEAD
     const [products, setProducts] = useState([]);
-=======
-     const [products, setProducts] = useState([]);
->>>>>>> 68580a7af23de663a205425b9974fb0cdcd3377f
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -49,27 +44,21 @@ function Cat3() {
         <div className="Cat3">
             <Navbar />
             <p className="mt-20 text-lg mx-12">
-                Our Listed Products are 100% Original and comes with 2 Month Warranty Period, with VAT included.
+                Our Listed Products are 100% Original and come with a 2-Month Warranty Period, with VAT included.
             </p>
 
             <h1 className="text-3xl text-center my-10 font-serif">Stationeries</h1>
 
-
-            <div className='relative bg-white rounded-lg overflow-hidden shadow-xl hover:shadow-2xl'>
+            <div className="relative bg-white rounded-lg overflow-hidden shadow-xl hover:shadow-2xl mx-12 mb-8">
                 {isLoading ? (
                     <Spinner loading={isLoading} />
                 ) : products.length === 0 ? (
                     <p className="text-center">Products Not Available</p>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-12 mb-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {products.map((product) => (
-<<<<<<< HEAD
-                            <div key={product._id} className="relative">
-                                <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
-=======
                             <div key={product._id} className="relative cursor-pointer">
-                                <img src={`https://workspaceb.vercel.app/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
->>>>>>> 68580a7af23de663a205425b9974fb0cdcd3377f
+                                <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
                                 <div className="block text-center">
                                     <h1 className="text-gray-600 font-bold">{product.name}</h1>
                                     <p className="text-gray-600">{product.description}</p>
@@ -83,7 +72,6 @@ function Cat3() {
             </div>
             <Footer />
         </div>
-    )
+    );
 }
-
-export default Cat3
+export default Cat3;

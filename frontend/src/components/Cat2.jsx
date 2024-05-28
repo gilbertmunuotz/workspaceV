@@ -73,4 +73,4 @@ function Cat2() {
     )
 }
 
-export default Cat2
+export default Cat2;
