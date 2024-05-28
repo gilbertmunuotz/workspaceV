@@ -49,22 +49,28 @@ function Cat3() {
 
             <h1 className="text-3xl text-center my-10 font-serif">Stationeries</h1>
 
-            <div className="relative bg-white rounded-lg overflow-hidden shadow-xl hover:shadow-2xl mx-12 mb-8">
+            <div className="relative bg-white rounded-lg overflow-hidden shadow-xl hover:shadow-2xl">
                 {isLoading ? (
                     <Spinner loading={isLoading} />
                 ) : products.length === 0 ? (
                     <p className="text-center">Products Not Available</p>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-12 mb-8">
                         {products.map((product) => (
-                            <div key={product._id} className="relative cursor-pointer">
-                                <img src={`http://localhost:3001/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+                            <div key={product._id} className="relative">
+                                <img
+                                    src={`http://localhost:3001/images/${product.imageURL}`}
+                                    alt={product.name}
+                                    className="w-full h-64 object-fill"
+                                />
                                 <div className="block text-center">
                                     <h1 className="text-gray-600 font-bold">{product.name}</h1>
                                     <p className="text-gray-600">{product.description}</p>
                                     <p className="text-gray-600 mt-2">Tshs {product.price}/=</p>
                                 </div>
-                                <div className="absolute text-sm font-bold rounded-full p-2 top-0 bg-sky-500 ml-2 mt-2">25% Off</div>
+                                <div className="absolute text-sm font-bold rounded-full p-2 top-0 bg-sky-500 ml-2 mt-2">
+                                    25% Off
+                                </div>
                             </div>
                         ))}
                     </div>

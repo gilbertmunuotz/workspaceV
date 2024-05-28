@@ -5,8 +5,8 @@ import Spinner from "../components/Spinner";
 
 function Cat1() {
 
-    const [products, setProducts] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {
@@ -16,30 +16,30 @@ function Cat1() {
       category
     )}`;
 
-        setIsLoading(true);
-        try {
-            fetch(url, {
-                method: 'GET'
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Request Failed'); // Throwing an error to trigger the catch block
-                    }
-                    return response.json(); // Parse response data
-                })
-                .then(data => {
-                    setProducts(data.products);
-                    setIsLoading(false);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        } catch (error) {
-            console.error("Error Getting Data", error);
-        } finally {
-            setIsLoading(false)
-        }
-    }, []);
+    setIsLoading(true);
+    try {
+      fetch(url, {
+        method: 'GET'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Request Failed'); // Throwing an error to trigger the catch block
+          }
+          return response.json(); // Parse response data
+        })
+        .then(data => {
+          setProducts(data.products);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    } catch (error) {
+      console.error("Error Getting Data", error);
+    } finally {
+      setIsLoading(false)
+    }
+  }, []);
 
   return (
     <div className="Cat1">

@@ -1,5 +1,6 @@
 var Joi = require('joi');
 var productModel = require('../models/productModel');
+var categoryModel = require('../models/categoryModel');
 var uploads = require('../middlewares/multermiddleware');
 
 //(DESC) A sample to test the routes & connections
@@ -154,4 +155,53 @@ async function deletePro(req, res, next) {
     }
 }
 
-module.exports = { getSignal, newProduct, getAllProducts, getAsingleProduct, updateProduct, deletePro };
+//(DESC) ADD Category
+async function addCategory(req, res, next) {
+
+    //Destructure Request Body
+    const { category } = req.body;
+
+    try {
+        // Validation with Joi
+        const categorySchema = Joi.object().keys({
+            category: Joi.string().required(),
+        }).options({ abortEarly: false });
+
+        const { error } = categorySchema.validate(req.body, { abortEarly: false });
+
+        if (error) {
+            return res.status(400).json({ errors: error.details.map(detail => detail.message) });
+        }
+
+        try {
+            const InstanceCategory = new categoryModel({ category });
+            const newCategory = InstanceCategory.save();
+            res.status(201).json({ message: "Category created successfully!" });
+
+        } catch (error) {
+            console.error("Error Adding Category", error);
+            return res.status(500).json({ status: 'error', message: 'Error Adding Category' });
+        }
+
+    } catch (error) {
+        next(error)
+        console.error("Error Adding Category", error);
+        res.status(500).json({ status: 'error', message: "Internal Server Error" })
+    }
+}
+
+//DESC Read All Categories
+async function getCategories(req, res, next) {
+
+    try {
+        const categories = await categoryModel.find();
+        res.status(200).json({ data: categories });
+
+    } catch (error) {
+        next(error)
+        console.error("Error Getting Categories", error);
+        res.status(500).json({ status: 'error', message: "Internal Server Eror" });
+    }
+}
+
+module.exports = { getSignal, newProduct, getAllProducts, getAsingleProduct, updateProduct, deletePro, addCategory, getCategories };
