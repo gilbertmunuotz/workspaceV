@@ -1,10 +1,11 @@
-import { FaTh } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { FaEdit } from "react-icons/fa";
+import { IoHome } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
-import { useEffect, useState, useRef } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Spinner from "../../components/Spinner";
+import { BiSolidCategory } from "react-icons/bi";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useLogoutMutation } from "../../auth/apiSlice";
@@ -36,7 +37,8 @@ function Home() {
     }
 
     const menuItems = [
-        { path: "/adminH", name: "Home", icon: <FaTh className="ml-1" /> },
+        { path: "/adminH", name: "Home", icon: <IoHome className="ml-1" /> },
+        { path: "/addCategory", name: "Add Category", icon: <BiSolidCategory size={24} /> },
         { path: "/addItems", name: "Add Product", icon: <IoIosAddCircleOutline size={24} /> },
     ];
 

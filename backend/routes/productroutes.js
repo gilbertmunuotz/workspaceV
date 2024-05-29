@@ -21,5 +21,10 @@ router.put('/api/updateProduct/:id', uploads.single('image'), productController.
 /* DELETE a product*/
 router.delete('/api/delete/:id', productController.deletePro);
 
+/* POST category */
+router.post('/api/cats', productController.addCategory);
+
+/*GET All Categories*/
+router.get('/api/allCats', productController.getCategories);
 
 module.exports = router;

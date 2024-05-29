@@ -1,8 +1,9 @@
-import { FaTh } from "react-icons/fa";
-import { toast } from 'react-toastify';
-import { CiLogout } from "react-icons/ci";
 import { useState } from "react";
+import { toast } from 'react-toastify';
+import { IoHome } from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
 import Spinner from "../../components/Spinner";
+import { BiSolidCategory } from "react-icons/bi";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { IoIosAddCircleOutline } from "react-icons/io";
 
@@ -18,7 +19,8 @@ function AddItems() {
     const categoryOptions = ["Computing", "Networking", "Stationeries"];
 
     const menuItems = [
-        { path: "/adminH", name: "Home", icon: <FaTh className="ml-1" /> },
+        { path: "/adminH", name: "Home", icon: <IoHome className="ml-1" /> },
+        { path: "/addCategory", name: "Add Category", icon: <BiSolidCategory size={24} /> },
         { path: "/addItems", name: "Add Product", icon: <IoIosAddCircleOutline size={24} /> },
     ];
 
