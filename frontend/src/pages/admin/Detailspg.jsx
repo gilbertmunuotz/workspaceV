@@ -26,8 +26,7 @@ function Detailspg() {
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const categoryOptions = ["Computing", "Networking", "Stationeries"];
-
+  const [categoryOptions, setCategoryOptions] = useState([]);
 
   //Get A Single  Product By Id Logic
   useEffect(() => {
@@ -50,6 +49,15 @@ function Detailspg() {
         setCategory(data.category);
         setDescription(data.description);
         setPrice(data.price);
+
+        // Fetch all categories
+        const categoriesResponse = await fetch('http://localhost:3001/api/allCats');
+        if (!categoriesResponse.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+        const data2 = await categoriesResponse.json();
+        setCategoryOptions(data2.categories);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -170,9 +178,14 @@ function Detailspg() {
                       onChange={(event) => setCategory(event.target.value)}
                       className="block w-full p-2 rounded-md border border-gray-300 focus:border-sky-500"
                     >
+                      {/* Options for the categories of the specific product */}
+                      {productData && (
+                        <option value={productData.category}>{productData.category}</option>
+                      )}
+                      {/* Options for all available categories */}
                       {categoryOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
+                        <option key={option._id} value={option.category}>
+                          {option.category}
                         </option>
                       ))}
                     </select>

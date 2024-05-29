@@ -159,12 +159,12 @@ async function deletePro(req, res, next) {
 async function addCategory(req, res, next) {
 
     //Destructure Request Body
-    const { category } = req.body;
+    const { newCategories } = req.body;
 
     try {
         // Validation with Joi
         const categorySchema = Joi.object().keys({
-            category: Joi.string().required(),
+            newCategories: Joi.string().required(),
         }).options({ abortEarly: false });
 
         const { error } = categorySchema.validate(req.body, { abortEarly: false });
@@ -174,7 +174,7 @@ async function addCategory(req, res, next) {
         }
 
         try {
-            const InstanceCategory = new categoryModel({ category });
+            const InstanceCategory = new categoryModel({ category: newCategories });
             const newCategory = InstanceCategory.save();
             res.status(201).json({ message: "Category created successfully!" });
 
@@ -195,7 +195,7 @@ async function getCategories(req, res, next) {
 
     try {
         const categories = await categoryModel.find();
-        res.status(200).json({ data: categories });
+        res.status(200).json({ categories });
 
     } catch (error) {
         next(error)

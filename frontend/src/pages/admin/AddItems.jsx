@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { toast } from 'react-toastify';
 import { IoHome } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
+import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
 import { BiSolidCategory } from "react-icons/bi";
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -12,11 +12,11 @@ function AddItems() {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
     const [image, setImage] = useState(null);
     const [price, setPrice] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const categoryOptions = ["Computing", "Networking", "Stationeries"];
+    const [category, setCategory] = useState('');
+    const [categoryOptions, setCategoryOptions] = useState([]);
 
     const menuItems = [
         { path: "/adminH", name: "Home", icon: <IoHome className="ml-1" /> },
@@ -24,10 +24,33 @@ function AddItems() {
         { path: "/addItems", name: "Add Product", icon: <IoIosAddCircleOutline size={24} /> },
     ];
 
+    useEffect(() => {
+        const url = `http://localhost:3001/api/allCats`;
+
+        async function fetchCategories() {
+            try {
+                const response = await fetch(url, {
+                    method: 'GET'
+                });
+                if (!response.ok) {
+                    throw new Error('Request Failed');
+                }
+                const data = await response.json();
+                setCategoryOptions(data.categories);
+            } catch (error) {
+                console.error("Error Fetching Categories", error);
+            }
+        }
+            fetchCategories();
+        }, [])
+
+
+    //Handle Image Actions
     const handleImage = (event) => {
         setImage(event.target.files[0]);
     }
 
+    //POST form Data
     async function handleSubmit(event) {
         event.preventDefault()
 
@@ -120,8 +143,8 @@ function AddItems() {
 
                                 <option value="" disabled>Select Category Below</option> {/* Default disabled option */}
                                 {categoryOptions.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option}
+                                    <option key={option._id} value={option.category}>
+                                        {option.category}
                                     </option>
                                 ))}
                             </select>

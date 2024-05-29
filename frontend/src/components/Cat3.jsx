@@ -10,7 +10,7 @@ function Cat3() {
 
     useEffect(() => {
 
-        const category = "Stationeries"; // Specify the category here
+        const category = "stationeries"; // Specify the category here
 
         const url = `http://localhost:3001/api/allProducts?category=${encodeURIComponent(category)}`;
 

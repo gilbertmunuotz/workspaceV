@@ -10,7 +10,7 @@ function Cat2() {
 
     useEffect(() => {
 
-        const category = "Networking"; // Specify the category here
+        const category = "networking"; // Specify the category here
 
         const url = `http://localhost:3001/api/allProducts?category=${encodeURIComponent(category)}`;
 
