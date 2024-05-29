@@ -112,36 +112,44 @@ function AddCategory() {
             </div>
 
             <main className="flex flex-col justify-center items-center h-screen ml-96 text-center">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6"> {/* Add mt-6 to create space below the top bar */}
-                    {isLoading ? (<Spinner loading={isLoading} />
-                    ) : categories?.length === 0 ? (
-                        <p className="text-center">No Categories Added.</p>
-                    ) : (
-                        categories.map((category) => (
-                            <h1 key={category._id}>{category.category}</h1>
-                        ))
-                    )}
+                <div className="grid grid-cols-2">
+                    <div className="cols-span-1 mr-96">
+                        {isLoading ? (<Spinner loading={isLoading} />
+                        ) : categories?.length === 0 ? (
+                            <p className="text-center">No Categories Added.</p>
+                        ) : (
+                            categories.map((category) => (
+                                <h1 key={category._id}>
+                                    <li className='text-xl'>
+                                        {category.category}
+                                    </li>
+                                </h1>
+                            ))
+                        )}
+                    </div>
+
+
+                    <form className="flex flex-col items-center w-full max-w-lg" onSubmit={handleSubmit}>
+                        <div className="w-full">
+                            <input
+                                type="text"
+                                value={newCategories}
+                                required
+                                placeholder='Enter Category Here...'
+                                name="categories"
+                                ref={catInputRef}
+                                onChange={(event) => setNewCategories(event.target.value)}
+                                className="block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <div>
+                            <button type="submit" disabled={isLoading} className="bg-sky-500 m-3 p-2 px-10 rounded-lg">
+                                {isLoading ? 'Adding....' : 'Add'}
+                            </button>
+                        </div>
+
+                        <Spinner loading={isLoading} />
+                    </form>
                 </div>
-
-                <form className="flex flex-col items-center w-full max-w-md" onSubmit={handleSubmit}>
-                    <div className="w-full">
-                        <input
-                            type="text"
-                            value={newCategories}
-                            required
-                            name="categories"
-                            ref={catInputRef}
-                            onChange={(event) => setNewCategories(event.target.value)}
-                            className="block w-full p-2 border border-gray-300 rounded-md" />
-                    </div>
-                    <div>
-                        <button type="submit" disabled={isLoading} className="bg-sky-500 m-3 p-2 px-10 rounded-lg">
-                            {isLoading ? 'Adding....' : 'Add'}
-                        </button>
-                    </div>
-
-                    <Spinner loading={isLoading} />
-                </form>
             </main>
         </div >
     )
