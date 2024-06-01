@@ -111,7 +111,7 @@ function AddCategory() {
                 </div>
             </div>
 
-            <main className="flex flex-col justify-center items-center h-screen ml-96 text-center">
+            <main className="flex flex-col justify-center items-center h-screen ml-72 text-center">
                 <div className="grid grid-cols-2">
                     <div className="cols-span-1 mr-96">
                         {isLoading ? (<Spinner loading={isLoading} />
