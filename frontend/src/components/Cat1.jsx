@@ -16,26 +16,26 @@ function Cat1() {
 
     setIsLoading(true);
     try {
-      fetch(url, {
-        method: "GET",
-      })
-        .then((response) => {
+      fetch(url)
+        .then(response => {
           if (!response.ok) {
-            throw new Error("Request Failed"); // Throwing an error to trigger the catch block
+            throw new Error('Request Failed');
           }
-          return response.json(); // Parse response data
+          return response.json();
         })
-        .then((data) => {
+        .then(data => {
           setProducts(data.products);
-          setIsLoading(false);
         })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          // You can set an error state here if needed
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } catch (error) {
       console.error("Error Getting Data", error);
-    } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Make sure to set isLoading to false in case of an error
     }
   }, []);
 
