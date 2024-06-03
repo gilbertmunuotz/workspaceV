@@ -21,6 +21,7 @@ function Body() {
             src={Masked}
             alt="MaskedImage"
             className="rounded-l-full rounded-tr-full md:mt-20"
+            loading="lazy"
           />
         </section>
 
@@ -45,6 +46,7 @@ function Body() {
             onClick={() => handleNavigate("/category1")}
           >
             <img
+              loading="lazy"
               src={Desktops}
               alt="MacBook Desktop"
               className="h-72 w-11/12 rounded-sm bg-contain"
@@ -58,6 +60,7 @@ function Body() {
             onClick={() => handleNavigate("/category2")}
           >
             <img
+              loading="lazy"
               src={Network}
               alt="Networking Switch"
               className="h-72 w-11/12 rounded-sm bg-contain"
@@ -71,6 +74,7 @@ function Body() {
             onClick={() => handleNavigate("/category3")}
           >
             <img
+              loading="lazy"
               src={Printers}
               alt="PrintersImage"
               className="h-72 w-11/12 rounded-sm bg-contain"
@@ -100,6 +104,7 @@ function Body() {
         <section className="mx-12">
           <div>
             <img
+              loading="lazy"
               src={AboutImage}
               alt="AboutImage"
               className="rounded-sm md:mt-24"

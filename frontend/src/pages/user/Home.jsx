@@ -6,6 +6,7 @@ function Navbar() {
     <div className="Navbar">
       <div className="h-[90vh] overflow-hidden">
         <img
+          loading="lazy"
           src={LandingPG}
           alt="landing page"
           className="object-cover w-full h-full"
