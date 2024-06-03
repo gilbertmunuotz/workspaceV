@@ -35,7 +35,7 @@ function Detailspg() {
 
       try {
         setIsLoading(true)
-        const url = `http://localhost:3001/api/product/${id}`;
+        const url = `https://workspace-vb.vercel.app/api/product/${id}`;
 
         const response = await fetch(url, { method: 'GET' });
 
@@ -51,7 +51,7 @@ function Detailspg() {
         setPrice(data.price);
 
         // Fetch all categories
-        const categoriesResponse = await fetch('http://localhost:3001/api/allCats');
+        const categoriesResponse = await fetch('https://workspace-vb.vercel.app/api/allCats');
         if (!categoriesResponse.ok) {
           throw new Error('Failed to fetch categories');
         }
@@ -86,7 +86,7 @@ function Detailspg() {
     formData.append('data', JSON.stringify(updatingFields));
     if (image) formData.append('image', image);
 
-    const url = `http://localhost:3001/api/updateProduct/${id}`;
+    const url = `https://workspace-vb.vercel.app/api/updateProduct/${id}`;
 
     try {
       const response = await fetch(url, {
@@ -136,7 +136,7 @@ function Detailspg() {
               <>
                 <div className="flex flex-col items-center mb-6 w-96">
                   <img
-                    src={`http://localhost:3001/images/${productData.imageURL}`}
+                    src={`https://workspace-vb.vercel.app/images/${productData.imageURL}`}
                     alt={productData.name}
                     className="h-80 w-96 object-fill rounded-t-xl mt-6 mr-48"
                   />

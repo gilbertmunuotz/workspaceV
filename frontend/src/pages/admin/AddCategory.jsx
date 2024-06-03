@@ -29,7 +29,7 @@ function AddCategory() {
 
     //Fetch Categories 
     async function fetchCategories() {
-        const url = `http://localhost:3001/api/allCats`;
+        const url = `https://workspace-vb.vercel.app/api/allCats`;
 
         setIsLoading(true);
 
@@ -65,7 +65,7 @@ function AddCategory() {
 
         setIsLoading(true);
 
-        const url = ` http://localhost:3001/api/cats`;
+        const url = ` https://workspace-vb.vercel.app/api/cats`;
 
         const userData = { newCategories };
 

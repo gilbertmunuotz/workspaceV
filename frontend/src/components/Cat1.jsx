@@ -10,7 +10,7 @@ function Cat1() {
   useEffect(() => {
     const category = "computing"; // Specify the category here
 
-    const url = `http://localhost:3001/api/allProducts?category=${encodeURIComponent(
+    const url = `https://workspace-vb.vercel.app/api/allProducts?category=${encodeURIComponent(
       category
     )}`;
 
@@ -59,7 +59,7 @@ function Cat1() {
             {products.map((product) => (
               <div key={product._id} className="relative">
                 <img
-                  src={`http://localhost:3001/images/${product.imageURL}`}
+                  src={`https://workspace-vb.vercel.app/images/${product.imageURL}`}
                   alt={product.name}
                   className="w-full h-64 object-fill"
                 />

@@ -12,7 +12,7 @@ function Cat2() {
 
         const category = "networking"; // Specify the category here
 
-        const url = `http://localhost:3001/api/allProducts?category=${encodeURIComponent(category)}`;
+        const url = `https://workspace-vb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
 
         setIsLoading(true);
         try {
@@ -57,7 +57,7 @@ function Cat2() {
                         {products.map((product) => (
                             <div key={product._id} className="relative">
                                 <img
-                                    src={`http://localhost:3001/images/${product.imageURL}`}
+                                    src={`https://workspace-vb.vercel.app/images/${product.imageURL}`}
                                     alt={product.name}
                                     className="w-full h-64 object-fill"
                                 />
