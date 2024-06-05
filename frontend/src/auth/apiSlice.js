@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const USERS_URL = '/api';
+const USERS_URL = 'https://workspace-vb.vercel.app/api';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: USERS_URL, // Assuming all your backend API routes start with /api
