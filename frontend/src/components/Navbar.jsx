@@ -27,7 +27,7 @@ function Home() {
                         <div className="flex space-x-26">
                             <FaPhoneVolume size={20} className="text-black" />
                             <h1>+255 766 598 445</h1>
-                            <Link to={"/adminH"}>
+                                <Link to={"/adminH"}>
                                 <button type="button" className='bg-sky-900 mx-2 px-3 rounded-lg'>
                                     Admin
                                 </button>
