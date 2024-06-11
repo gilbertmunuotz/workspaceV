@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
-import { FaTimes } from 'react-icons/fa'
+import { Link } from "react-router-dom";
+import { FaTimes } from 'react-icons/fa';
 import { FaMailBulk } from "react-icons/fa";
 import { FaPhoneVolume } from "react-icons/fa6";
 
@@ -26,6 +27,11 @@ function Home() {
                         <div className="flex space-x-26">
                             <FaPhoneVolume size={20} className="text-black" />
                             <h1>+255 766 598 445</h1>
+                            <Link to={"/adminH"}>
+                                <button type="button" className='bg-sky-900 mx-2 px-3 rounded-lg'>
+                                    Admin
+                                </button>
+                            </Link>
                         </div>
                     </ul>
 
