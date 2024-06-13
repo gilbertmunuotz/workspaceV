@@ -26,7 +26,7 @@ var app = express();
 // Add your Express middleware, and other logic here
 app.use(express.json());
 app.use(cors({
-  origin: 'https://workspace-vf.vercel.app/',
+  origin: 'https://workspace-vf.vercel.app',
   methods: ["GET", "POST", "PUT", "DELETE",],
   allowedHeaders: ["Content-Type"]
 }));
