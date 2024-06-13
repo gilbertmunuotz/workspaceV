@@ -10,7 +10,7 @@ function Cat3() {
 
     const category = "stationeries"; // Specify the category here
 
-    const url = `api/allProducts?category=${encodeURIComponent(category)}`;
+    const url = `https://workspace-vb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
 
     useEffect(() => {
         async function fetchData() {
