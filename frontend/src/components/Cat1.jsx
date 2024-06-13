@@ -53,7 +53,7 @@ function Cat1() {
             {products.map((product) => (
               <div key={product._id} className="relative">
                 <img
-                  src={`http://localhost:3001/images/${product.imageURL}`}
+                  src={`https://workspace-vb.vercel.app/images/${product.imageURL}`}
                   alt={product.name}
                   className="w-full h-64 object-fill"
                 />
