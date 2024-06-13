@@ -8,36 +8,30 @@ function Cat2() {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const category = "networking"; // Specify the category here
+
+    const url = `api/allProducts?category=${encodeURIComponent(category)}`;
+
     useEffect(() => {
 
-        const category = "networking"; // Specify the category here
+        async function fetchData() {
 
-        const url = `https://workspace-vb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
+            setIsLoading(true);
 
-        setIsLoading(true);
-        try {
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Request Failed');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    setProducts(data.products);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    // You can set an error state here if needed
-                })
-                .finally(() => {
-                    setIsLoading(false);
-                });
-        } catch (error) {
-            console.error("Error Getting Data", error);
-            setIsLoading(false); // Make sure to set isLoading to false in case of an error
+            try {
+                const response = await fetch(url, { method: 'GET' });
+
+                const data = await response.json();
+                setProducts(data.products);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setIsLoading(false); // Set loading to false regardless of success or error
+            }
         }
-    }, []);
+
+        fetchData(); //Call method to Fetch Data from Backend
+    }, [url]);
 
     return (
         <div className="Cat2">
@@ -57,7 +51,7 @@ function Cat2() {
                         {products.map((product) => (
                             <div key={product._id} className="relative">
                                 <img
-                                    src={`https://workspace-vb.vercel.app/images/${product.imageURL}`}
+                                    src={`http://localhost:3001/images/${product.imageURL}`}
                                     alt={product.name}
                                     className="w-full h-64 object-fill"
                                 />

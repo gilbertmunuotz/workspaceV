@@ -25,7 +25,7 @@ function AddItems() {
     ];
 
     useEffect(() => {
-        const url = `https://workspace-vb.vercel.app/api/allCats`;
+        const url = `/api/allCats`;
 
         async function fetchCategories() {
             try {
@@ -56,7 +56,7 @@ function AddItems() {
 
         setIsLoading(true)
 
-        const url = "https://workspace-vb.vercel.app/api/newProduct";
+        const url = `/api/newProduct`;
 
         const formData = new FormData(); // Use FormData for multipart form data
         formData.append('name', name);
