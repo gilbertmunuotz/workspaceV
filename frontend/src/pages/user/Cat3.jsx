@@ -1,7 +1,7 @@
-import Footer from './Footer';
-import Navbar from "./Navbar";
+import Footer from '../../components/Footer';
+import Navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
-import Spinner from '../components/Spinner';
+import Spinner from '../../components/Spinner';
 
 
 function Cat3() {
@@ -10,7 +10,7 @@ function Cat3() {
 
     const category = "stationeries"; // Specify the category here
 
-    const url = `https://workspace-vb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
+    const url = `http://localhost:8000/api/allProducts?category=${encodeURIComponent(category)}`;
 
     useEffect(() => {
         async function fetchData() {
@@ -51,7 +51,7 @@ function Cat3() {
                         {products.map((product) => (
                             <div key={product._id} className="relative">
                                 <img
-                                    src={`https://workspace-vb.vercel.app/images/${product.imageURL}`}
+                                    src={`http://localhost:8000/images/${product.imageURL}`}
                                     alt={product.name}
                                     className="w-full h-64 object-fill"
                                 />

@@ -1,5 +1,5 @@
 import Typewriter from "typewriter-effect";
-import LandingPG from "../../assets/Digital circle.jpg";
+import LandingPG from "/Digital circle.jpg";
 
 function Navbar() {
   return (

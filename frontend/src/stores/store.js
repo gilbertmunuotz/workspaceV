@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-import { apiSlice } from "../auth/apiSlice";
+import { apiSlice } from "../api/apiSlice";
 import authReducer from "../auth/authSlice";
 
 

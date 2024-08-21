@@ -136,7 +136,7 @@ function Detailspg() {
               <>
                 <div className="flex flex-col items-center mb-6 w-96">
                   <img
-                    src={`https://workspace-vb.vercel.app/${productData.imageURL}`}
+                    src={`http://localhost:8000/images/${productData.imageURL}`}
                     alt={productData.name}
                     className="h-80 w-96 object-fill rounded-t-xl mt-6 mr-48"
                   />

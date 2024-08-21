@@ -16,4 +16,4 @@ function PrivateRoutes({ children }) {
 PrivateRoutes.propTypes = {
     children: PropTypes.node.isRequired,
 };
-export default PrivateRoutes
+export default PrivateRoutes;

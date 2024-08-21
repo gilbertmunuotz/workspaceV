@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Spinner from '../../components/Spinner';
 import { credentials } from '../../auth/authSlice';
 import { Link, useNavigate } from 'react-router-dom'
-import { useLoginMutation } from '../../auth/apiSlice';
+import { useLoginMutation } from '../../api/apiSlice';
 
 
 function Login() {

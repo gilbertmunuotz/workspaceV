@@ -2,12 +2,16 @@
 var path = require('path');
 var cors = require('cors');
 var express = require('express');
+var dotenv = require('dotenv');
+dotenv.config(); // Load environment variables
+var { CLIENT_API } = require('./utilities/constants');
+var port = process.env.PORT;
 var mongoose = require('mongoose');
-var port = process.env.PORT || 3001;
-var conn = require('dotenv').config();
 var userroutes = require('./routes/userroutes');
 var adminroutes = require('./routes/adminroutes');
 var productroutes = require('./routes/productroutes');
+
+
 
 // Connect to MongoDB 
 async function connectToMongo() {
@@ -26,7 +30,7 @@ var app = express();
 // Add your Express middleware, and other logic here
 app.use(express.json());
 app.use(cors({
-  origin: 'https://workspace-vf.vercel.app',
+  origin: `${CLIENT_API}`,
   methods: ["GET", "POST", "PUT", "DELETE",],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));

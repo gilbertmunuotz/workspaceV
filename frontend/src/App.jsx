@@ -1,17 +1,17 @@
 import Index from "./components/Index";
 import Login from "./pages/admin/Login";
-import Category1 from "./components/Cat1";
-import Category2 from "./components/Cat2";
-import Category3 from "./components/Cat3";
+import Category1 from "./pages/user/Cat1";
+import Category2 from "./pages/user/Cat2";
+import Category3 from "./pages/user/Cat3";
 import AdminHome from "./pages/admin/Home";
 import Notfound from "./components/Notfound";
 import AddItems from "./pages/admin/AddItems";
 import Register from "./pages/admin/Register";
 import { ToastContainer } from 'react-toastify';
 import Detailspg from "./pages/admin/Detailspg";
+import AddCategory from "./pages/admin/AddCategory";
 import PrivateRoutes from "./components/PrivateRoutes";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AddCategory from "./pages/admin/AddCategory";
 
 const router = createBrowserRouter([
   { path: "/", element: <Index />, errorElement: <Notfound /> },

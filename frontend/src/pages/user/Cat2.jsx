@@ -1,6 +1,6 @@
-import Footer from './Footer';
-import Navbar from "./Navbar";
-import Spinner from '../components/Spinner';
+import Footer from '../../components/Footer';
+import Navbar from "../../components/Navbar";
+import Spinner from '../../components/Spinner';
 import { useEffect, useState } from "react";
 
 function Cat2() {
@@ -10,7 +10,7 @@ function Cat2() {
 
     const category = "networking"; // Specify the category here
 
-    const url = `https://workspace-vb.vercel.app/api/allProducts?category=${encodeURIComponent(category)}`;
+    const url = `http://localhost:8000/api/allProducts?category=${encodeURIComponent(category)}`;
 
     useEffect(() => {
 
@@ -51,7 +51,7 @@ function Cat2() {
                         {products.map((product) => (
                             <div key={product._id} className="relative">
                                 <img
-                                    src={`https://workspace-vb.vercel.app/images/${product.imageURL}`}
+                                    src={`http://localhost:8000/images/${product.imageURL}`}
                                     alt={product.name}
                                     className="w-full h-64 object-fill"
                                 />

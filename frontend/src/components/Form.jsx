@@ -2,8 +2,7 @@ import Spinner from './Spinner';
 import { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import { useSendMessageMutation } from '../auth/apiSlice';
-
+import {useSendMessageMutation} from '../api/apiSlice'
 
 function Form() {
     const [name, setName] = useState('');
@@ -105,4 +104,4 @@ function Form() {
         </div >
     )
 }
-export default Form
+export default Form;

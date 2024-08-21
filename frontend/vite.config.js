@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://workspace-vb.vercel.app/',
+        target: 'http://localhost:8000',
         changeOrigin: true, // Required for CORS
         // secure: false, // If your backend uses HTTPS, set to true
       },

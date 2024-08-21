@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import Spinner from '../../components/Spinner';
 import { credentials } from '../../auth/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
-import { useRegisterMutation } from '../../auth/apiSlice'
+import { useRegisterMutation } from '../../api/apiSlice'
 
 function Register() {
 

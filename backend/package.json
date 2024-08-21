@@ -3,7 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "dev": "nodemon"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "./"
+    ],
+    "ext": "js,html",
+    "ignore": [
+      "public"
+    ]
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

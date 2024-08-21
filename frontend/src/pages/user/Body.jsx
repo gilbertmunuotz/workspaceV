@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import Masked from "../../assets/2248500.jpg";
-import Network from "../../assets/network.jpg";
+import Masked from "/2248500.jpg";
+import Network from "/network.jpg";
+import Printers from "/printers.jpg";
+import Desktops from "/desktops.jpg";
+import AboutImage from "/WhoAreWe.jpg";
 import { useNavigate } from "react-router-dom";
-import Printers from "../../assets/printers.jpg";
-import Desktops from "../../assets/desktops.jpg";
-import AboutImage from "../../assets/WhoAreWe.jpg";
 
 function Body() {
   const navigate = useNavigate();

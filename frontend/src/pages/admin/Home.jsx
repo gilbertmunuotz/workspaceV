@@ -8,7 +8,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { useLogoutMutation } from "../../auth/apiSlice";
+import { useLogoutMutation } from "../../api/apiSlice";
 import { clearPersistedState } from "../../auth/authSlice";
 import { NavLink, useNavigate, Link } from 'react-router-dom';
 
@@ -156,7 +156,7 @@ function Home() {
                                     }
                                 }).map((product) => (
                                     <div key={product._id} className="border p-4 rounded">
-                                        <img src={`https://workspace-vb.vercel.app/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
+                                        <img src={`http://localhost:8000/images/${product.imageURL}`} alt={product.name} className="w-full h-64 object-fill" />
                                         <div className="grid grid-cols-2 gap-3">
                                             <h1 className="text-gray-600">{product.name}</h1>
                                             <p className="text-gray-600">Category: {product.category}</p>
